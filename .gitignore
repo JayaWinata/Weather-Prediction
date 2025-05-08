@@ -1,2 +1,4 @@
 weather-prediction-venv/
 temp.txt
+__pycache__/
+logs/
