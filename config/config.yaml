@@ -1,0 +1,27 @@
+artifacts_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  base_source_url: "https://api.open-meteo.com/v1/forecast"
+  data_path: artifacts/data_ingestion/weather_data.csv
+  url_params:
+    latitude: "-7.9797"
+    longitude: "112.6304"
+    daily:
+      - "temperature_2m_max"
+      - "temperature_2m_min"
+      - "weather_code"
+      - "apparent_temperature_max"
+      - "apparent_temperature_min"
+      - "wind_speed_10m_max"
+      - "wind_gusts_10m_max"
+      - "wind_direction_10m_dominant"
+      - "shortwave_radiation_sum"
+      - "uv_index_max"
+      - "daylight_duration"
+      - "sunshine_duration"
+      - "et0_fao_evapotranspiration"
+    start_date: "2025-02-13"
+    end_date: "2025-05-20"
+    format: csv
+  target_dir: artifacts/data_ingestion
