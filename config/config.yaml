@@ -25,3 +25,8 @@ data_ingestion:
     end_date: "2025-05-20"
     format: csv
   target_dir: artifacts/data_ingestion
+
+data_transformation:
+  root_dir: "artifacts/data_transformation"
+  data_path: "artifacts/data_ingestion/weather_data.csv"
+  transformed_filename: "weather_data.csv"

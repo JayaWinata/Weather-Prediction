@@ -8,3 +8,9 @@ class DataIngestionConfig:
     data_path: Path
     url_params: list
     target_dir: Path
+
+@dataclass
+class DataTransformationConfig:
+    root_dir: Path
+    data_path: Path
+    transformed_filename: Path

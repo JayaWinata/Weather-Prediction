@@ -1,1 +1,17 @@
-key: value
+COLUMNS:
+  time: object
+  temperature_2m_max: float64
+  temperature_2m_min: float64
+  apparent_temperature_max: float64
+  apparent_temperature_min: float64
+  wind_speed_10m_max: float64
+  wind_gusts_10m_max: float64
+  wind_direction_10m_dominant: float64
+  shortwave_radiation_sum: float64
+  uv_index_max: float64
+  daylight_duration: float64
+  sunshine_duration: float64
+  et0_fao_evapotranspiration: float64
+
+TARGET_COLUMN:
+  name: weather
