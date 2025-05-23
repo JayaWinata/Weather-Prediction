@@ -28,7 +28,11 @@ class DataIngestion:
         else:
             logger.info("File already exists")
 
-        df = pd.read_csv(self.config.data_path, skiprows=3)
+        try:
+            df = pd.read_csv(self.config.data_path)
+        except Exception as e:
+            logger.error(e)
+            df = pd.read_csv(self.config.data_path, skiprows=3)
         df.columns = df.columns.str.replace(r"\s*\(.*?\)", "", regex=True)
         df.columns = df.columns.str.strip()
         df.to_csv(self.config.data_path, index=False)
