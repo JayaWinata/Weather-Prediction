@@ -1,5 +1,4 @@
 COLUMNS:
-  time: object
   temperature_2m_max: float64
   temperature_2m_min: float64
   apparent_temperature_max: float64
