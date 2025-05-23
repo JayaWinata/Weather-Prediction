@@ -23,3 +23,13 @@ class ModelTrainerConfig:
     model_name: str
     target_column: str
     model_params: dict = field(default_factory=dict)
+
+@dataclass
+class ModelEvaluationConfig:
+    root_dir: Path
+    test_data_path: Path
+    model_path: Path
+    model_params: dict
+    metric_file_name: Path
+    target_column: str
+    mlflow_uri: str
