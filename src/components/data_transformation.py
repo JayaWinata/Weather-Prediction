@@ -18,7 +18,7 @@ class DataTransformation:
         logger.info("Missing value handled successfully")
 
     def remove_duplicates(self):
-        data = pd.read_csv(self.config.data_path)
+        data = pd.read_csv(os.path.join(self.config.root_dir, self.config.transformed_filename))
         data.drop_duplicates()
         data.to_csv(os.path.join(self.config.root_dir, self.config.transformed_filename), index=False)
 
