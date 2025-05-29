@@ -17,6 +17,13 @@ class DataTransformation:
         logger.info(f"Null values:\n{data.isna().sum()}")
         logger.info("Missing value handled successfully")
 
+    def remove_duplicates(self):
+        data = pd.read_csv(self.config.data_path)
+        data.drop_duplicates()
+        data.to_csv(os.path.join(self.config.root_dir, self.config.transformed_filename), index=False)
+
+        logger.info('Duplicated data removed successfully')
+
     def feature_engineering(self):
         weather_codes = {
             0: "Clear sky",

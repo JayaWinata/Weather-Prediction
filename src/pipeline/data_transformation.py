@@ -13,6 +13,7 @@ class DataTransformationPipeline:
         data_transformation_config = config.get_data_transformation_config()
         data_transformation = DataTransformation(config=data_transformation_config)
         data_transformation.handle_missing_values()
+        data_transformation.remove_duplicates()
         data_transformation.feature_engineering()
         data_transformation.train_test_spliting()
 

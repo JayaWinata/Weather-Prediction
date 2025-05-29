@@ -21,8 +21,6 @@ data_ingestion:
       - "daylight_duration"
       - "sunshine_duration"
       - "et0_fao_evapotranspiration"
-    start_date: "2025-02-13"
-    end_date: "2025-05-20"
     format: csv
   target_dir: artifacts/data_ingestion
 
