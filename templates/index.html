@@ -1,84 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather Data Prediction</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
 
-<body>
+  <body>
     <div class="form-container">
-        <h2>Weather Prediction</h2>
-        <form action="/submit-weather-data" method="post">
-            <div class="form-group">
-                <label for="temperature_2m_max">Maximum Temperature (2m above ground) (°C)</label>
-                <input type="number" id="temperature_2m_max" name="temperature_2m_max" step="0.1" required>
-            </div>
+      <h2>Weather Prediction</h2>
+      <form action="/predict" method="post">
+        <div class="form-group">
+          <label for="temperature_2m_max"
+            >Maximum Temperature (2m above ground) (°C)</label
+          >
+          <input
+            type="number"
+            id="temperature_2m_max"
+            name="temperature_2m_max"
+            step="0.1"
+            required
+          />
+        </div>
 
-            <div class="form-group">
-                <label for="temperature_2m_min">Minimum Temperature (2m above ground) (°C)</label>
-                <input type="number" id="temperature_2m_min" name="temperature_2m_min" step="0.1" required>
-            </div>
+        <div class="form-group">
+          <label for="temperature_2m_min"
+            >Minimum Temperature (2m above ground) (°C)</label
+          >
+          <input
+            type="number"
+            id="temperature_2m_min"
+            name="temperature_2m_min"
+            step="0.1"
+            required
+          />
+        </div>
 
-            <div class="form-group">
-                <label for="apparent_temperature_max">Maximum Apparent Temperature (°C)</label>
-                <input type="number" id="apparent_temperature_max" name="apparent_temperature_max" step="0.1" required>
-            </div>
+        <div class="form-group">
+          <label for="apparent_temperature_max"
+            >Maximum Apparent Temperature (°C)</label
+          >
+          <input
+            type="number"
+            id="apparent_temperature_max"
+            name="apparent_temperature_max"
+            step="0.1"
+            required
+          />
+        </div>
 
-            <div class="form-group">
-                <label for="apparent_temperature_min">Minimum Apparent Temperature (°C)</label>
-                <input type="number" id="apparent_temperature_min" name="apparent_temperature_min" step="0.1" required>
-            </div>
+        <div class="form-group">
+          <label for="apparent_temperature_min"
+            >Minimum Apparent Temperature (°C)</label
+          >
+          <input
+            type="number"
+            id="apparent_temperature_min"
+            name="apparent_temperature_min"
+            step="0.1"
+            required
+          />
+        </div>
 
-            <div class="form-group">
-                <label for="wind_speed_10m_max">Maximum Wind Speed (10m above ground) (km/h)</label>
-                <input type="number" id="wind_speed_10m_max" name="wind_speed_10m_max" step="0.1" required>
-            </div>
+        <div class="form-group">
+          <label for="wind_speed_10m_max"
+            >Maximum Wind Speed (10m above ground) (km/h)</label
+          >
+          <input
+            type="number"
+            id="wind_speed_10m_max"
+            name="wind_speed_10m_max"
+            step="0.1"
+            required
+          />
+        </div>
 
-            <div class="form-group">
-                <label for="wind_gusts_10m_max">Maximum Wind Gusts (10m above ground) (km/h)</label>
-                <input type="number" id="wind_gusts_10m_max" name="wind_gusts_10m_max" step="0.1" required>
-            </div>
+        <div class="form-group">
+          <label for="wind_gusts_10m_max"
+            >Maximum Wind Gusts (10m above ground) (km/h)</label
+          >
+          <input
+            type="number"
+            id="wind_gusts_10m_max"
+            name="wind_gusts_10m_max"
+            step="0.1"
+            required
+          />
+        </div>
 
-            <div class="form-group">
-                <label for="wind_direction_10m_dominant">Dominant Wind Direction (10m above ground) (°)</label>
-                <input type="number" id="wind_direction_10m_dominant" name="wind_direction_10m_dominant" min="0"
-                    max="360" required>
-                <small>Enter a value between 0 and 360 degrees.</small>
-            </div>
+        <div class="form-group">
+          <label for="wind_direction_10m_dominant"
+            >Dominant Wind Direction (10m above ground) (°)</label
+          >
+          <input
+            type="number"
+            id="wind_direction_10m_dominant"
+            name="wind_direction_10m_dominant"
+            min="0"
+            max="360"
+            required
+          />
+          <small>Enter a value between 0 and 360 degrees.</small>
+        </div>
 
-            <div class="form-group">
-                <label for="shortwave_radiation_sum">Shortwave Radiation Sum (MJ/m²)</label>
-                <input type="number" id="shortwave_radiation_sum" name="shortwave_radiation_sum" step="0.1" required>
-            </div>
+        <div class="form-group">
+          <label for="shortwave_radiation_sum"
+            >Shortwave Radiation Sum (MJ/m²)</label
+          >
+          <input
+            type="number"
+            id="shortwave_radiation_sum"
+            name="shortwave_radiation_sum"
+            step="0.1"
+            required
+          />
+        </div>
 
-            <div class="form-group">
-                <label for="uv_index_max">Maximum UV Index</label>
-                <input type="number" id="uv_index_max" name="uv_index_max" step="0.1" min="0" required>
-            </div>
+        <div class="form-group">
+          <label for="uv_index_max">Maximum UV Index</label>
+          <input
+            type="number"
+            id="uv_index_max"
+            name="uv_index_max"
+            step="0.1"
+            min="0"
+            required
+          />
+        </div>
 
-            <div class="form-group">
-                <label for="daylight_duration">Daylight Duration (seconds)</label>
-                <input type="number" id="daylight_duration" name="daylight_duration" required>
-            </div>
+        <div class="form-group">
+          <label for="daylight_duration">Daylight Duration (seconds)</label>
+          <input
+            type="number"
+            id="daylight_duration"
+            name="daylight_duration"
+            required
+          />
+        </div>
 
-            <div class="form-group">
-                <label for="sunshine_duration">Sunshine Duration (seconds)</label>
-                <input type="number" id="sunshine_duration" name="sunshine_duration" required>
-            </div>
+        <div class="form-group">
+          <label for="sunshine_duration">Sunshine Duration (seconds)</label>
+          <input
+            type="number"
+            id="sunshine_duration"
+            name="sunshine_duration"
+            required
+          />
+        </div>
 
-            <div class="form-group">
-                <label for="et0_fao_evapotranspiration">ET₀ FAO Evapotranspiration (mm)</label>
-                <input type="number" id="et0_fao_evapotranspiration" name="et0_fao_evapotranspiration" step="0.01"
-                    required>
-            </div>
+        <div class="form-group">
+          <label for="et0_fao_evapotranspiration"
+            >ET₀ FAO Evapotranspiration (mm)</label
+          >
+          <input
+            type="number"
+            id="et0_fao_evapotranspiration"
+            name="et0_fao_evapotranspiration"
+            step="0.01"
+            required
+          />
+        </div>
 
-            <button type="submit">Submit Weather Data</button>
-            <button class="grey-button">Re-train model</button>
-        </form>
+        <button type="submit">Submit Weather Data</button>
+        <a href="/train">Re-train model</a>
+      </form>
     </div>
-</body>
-
+  </body>
 </html>

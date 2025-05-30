@@ -79,13 +79,17 @@ button {
   margin-top: 20px;
 }
 
-button:hover {
+button:hover,
+a:hover {
   background-color: #218838;
 }
 
-.grey-button {
+.grey-button,
+a {
+  display: block;
+  text-align: center;
   width: 100%;
-  padding: 12px;
+  padding: 12px 0px;
   background-color: #6c757d; /* Bootstrap grey */
   color: white;
   border: none;
@@ -96,6 +100,7 @@ button:hover {
   margin-top: 20px;
 }
 
-.grey-button:hover {
+.grey-button:hover,
+a:hover {
   background-color: #5a6268;
 }
