@@ -2,8 +2,8 @@
 
 A modular machine learning project to **predict weather conditions** based on multiple meteorological features. It includes complete data pipelines, model training with MLflow tracking, and a user-friendly Flask web app to input data and get predictions.
 ![Weather data input](/docs/image.png)
-![Prediction result](/docs/image1.jpg)
-![Training info](/docs/image2.jpg)
+![Training info](/docs/image1.jpg)
+![Prediction result](/docs/image2.jpg)
 
 ---
 
