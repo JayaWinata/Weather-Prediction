@@ -31,7 +31,7 @@ The web interface allows users to submit key environmental variables and view pr
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Category              | Tools Used           |
 | --------------------- | -------------------- |
