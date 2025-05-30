@@ -1,12 +1,16 @@
 # Weather Prediction
 
 A modular machine learning project to **predict weather conditions** based on multiple meteorological features. It includes complete data pipelines, model training with MLflow tracking, and a user-friendly Flask web app to input data and get predictions.
+![Weather data input](/docs/image.png)
+![Prediction result](/docs/image1.jpg)
+![Training info](/docs/image2.jpg)
 
 ---
 
 ## Overview
 
-This project uses real-time weather data from the **Open-Meteo API** to build a predictive model for weather conditions. It emphasizes clean architecture through modular pipelines: 
+This project uses real-time weather data from the **Open-Meteo API** to build a predictive model for weather conditions. It emphasizes clean architecture through modular pipelines:
+
 - **ETL (Extract, Transform, Load)**
 - **Model training and evaluation**
 - **Prediction API**
@@ -29,15 +33,14 @@ The web interface allows users to submit key environmental variables and view pr
 
 ## 🛠️ Tech Stack
 
-| Category         | Tools Used                         |
-|------------------|------------------------------------|
-| Programming Languange | Python                             |
-| Web Framework    | Flask                              |
-| ML & Tracking    | scikit-learn, MLflow               |
-| Data Handling    | Pandas, NumPy                      |
-| Data Source      | Open-Meteo API                     |
-| Frontend         | HTML5, CSS3                        |
-
+| Category              | Tools Used           |
+| --------------------- | -------------------- |
+| Programming Languange | Python               |
+| Web Framework         | Flask                |
+| ML & Tracking         | scikit-learn, MLflow |
+| Data Handling         | Pandas, NumPy        |
+| Data Source           | Open-Meteo API       |
+| Frontend              | HTML5, CSS3          |
 
 ---
 
@@ -65,25 +68,30 @@ The model is trained using the following features:
 ## Key Steps
 
 ### 1. **Data Ingestion**
+
 - Extract weather data using Open-Meteo API
 - Store and format it for further processing
 
 ### 2. **Data Transformation**
+
 - Handle missing values
 - Remove duplicate records
 - Apply feature engineering
 - Split into training and testing sets
 
 ### 3. **Model Training**
+
 - Train a machine learning model
 - Log metrics and parameters with MLflow
 - Evaluate accuracy and performance
 
 ### 4. **Prediction**
+
 - Load trained model
 - Predict weather based on new inputs
 
 ### 5. **Flask Web Application**
+
 - Input data through a styled form
 - View predictions on submit
 - Re-train model with a dedicated route
