@@ -3,3 +3,5 @@ temp.txt
 __pycache__/
 logs/
 artifacts/
+.deployment
+.vscode
