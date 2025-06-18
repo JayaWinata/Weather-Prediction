@@ -12,7 +12,9 @@ def home_page():
 
 @app.route('/train', methods=['GET'])
 def training():
+    print('training pipeline running...')
     os.system("python main.py")
+    print('training pipeline finished')
     return render_template('train_notif.html')
 
 @app.route('/predict', methods=['GET', 'POST'])
