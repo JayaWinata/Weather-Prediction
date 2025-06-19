@@ -9,6 +9,14 @@ import dagshub
 from src.entity.config_entity import ModelEvaluationConfig
 from src.utils.helper import save_json
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
+
+os.environ["MLFLOW_TRACKING_URI"]= os.getenv('MLFLOW_TRACKING_URI')
+os.environ["MLFLOW_TRACKING_USERNAME"]= os.getenv('MLFLOW_TRACKING_USERNAME')
+os.environ["MLFLOW_TRACKING_PASSWORD"]= os.getenv('MLFLOW_TRACKING_PASSWORD')
+os.environ["DAGSHUB_USERNAME"] = os.getenv("DAGSHUB_USERNAME")
+os.environ["DAGSHUB_USER_TOKEN"] = os.getenv("DAGSHUB_USER_TOKEN")
 
 dagshub.init(repo_owner='jayawinata100', repo_name='Weather-Prediction', mlflow=True)
 

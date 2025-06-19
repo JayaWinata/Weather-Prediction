@@ -14,3 +14,4 @@ Flask
 Flask-Cors
 dagshub
 gunicorn
+python-dotenv
