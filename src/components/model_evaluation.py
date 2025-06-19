@@ -59,6 +59,8 @@ class ModelEvaluation:
 
             # Save model locally first
             local_model_path = "final_model/RFClassifierModel.pkl"
+            model_dir = os.path.dirname(local_model_path)
+            os.makedirs(model_dir, exist_ok=True)
             joblib.dump(model, local_model_path)
 
             # Log model file as artifact
