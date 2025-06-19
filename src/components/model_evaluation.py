@@ -52,7 +52,14 @@ class ModelEvaluation:
             mlflow.log_metric("accuracy", accuracy)
             # mlflow.log_text(str(classification_report(test_y, predicted_value)))
 
-            if tracking_url_type_store != "file":
-                mlflow.sklearn.log_model(model, "model", registered_model_name="RFClassifierModel")
-            else:
-                mlflow.sklearn.log_model(model, "model")
+            # if tracking_url_type_store != "file":
+            #     mlflow.sklearn.log_model(model, "model", registered_model_name="RFClassifierModel")
+            # else:
+            #     mlflow.sklearn.log_model(model, "model")
+
+            # Save model locally first
+            local_model_path = "final_model/RFClassifierModel.pkl"
+            joblib.dump(model, local_model_path)
+
+            # Log model file as artifact
+            mlflow.log_artifact(local_model_path)
