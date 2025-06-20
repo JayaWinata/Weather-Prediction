@@ -1,0 +1,121 @@
+name: Build and deploy Python app to Azure Virtual Machine - weather-prediction
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - "README.md"
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  integration:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Lint code
+        run: echo "Linting repository"
+
+      - name: Run unit tests
+        run: echo "Running unit tests"
+
+  build-and-push-image:
+    name: Continuous Delivery
+    needs: integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install utilities
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq unzip # jq and unzip are installed, ensure they are needed for other parts of your workflow if not directly used here.
+
+      - name: Azure Container Registry Login
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.CR_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build . -t ${{ secrets.CR_LOGIN_SERVER }}/my_app:${{ github.sha }}
+          docker push ${{ secrets.CR_LOGIN_SERVER }}/my_app:${{ github.sha }}
+
+  deploy:
+    name: Continuous Deployment
+    needs: build-and-push-image
+    runs-on: self-hosted
+    steps:
+      - name: Chekcout code
+        uses: actions/checkout@v3
+
+      - name: Install Azure CLI using a marketplace action
+        uses: pietrobolcato/install-azure-cli-action@main
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy Docker Image to Azure VM
+        run: |
+          IMAGE="${{ secrets.CR_LOGIN_SERVER }}/my_app:${{ github.sha }}"
+          RG="${{ secrets.VM_RESOURCE_GROUP }}"
+          VM="${{ secrets.VM_NAME }}"
+          PORT="${{ secrets.APP_PORT }}"
+          NAME="${{ secrets.CONTAINER_NAME }}"
+          ACR_USERNAME="${{ secrets.REGISTRY_USERNAME }}"
+          ACR_PASSWORD="${{ secrets.REGISTRY_PASSWORD }}"
+          MLFLOW_TRACKING_URI="${{ secrets.MLFLOW_TRACKING_URI }}"
+          MLFLOW_TRACKING_USERNAME="${{ secrets.MLFLOW_TRACKING_USERNAME }}"
+          MLFLOW_TRACKING_PASSWORD="${{ secrets.MLFLOW_TRACKING_PASSWORD }}"
+          DAGSHUB_USERNAME="${{ secrets.DAGSHUB_USERNAME }}"
+          DAGSHUB_USER_TOKEN="${{ secrets.DAGSHUB_USER_TOKEN }}"
+
+          az vm run-command invoke \
+            --resource-group "$RG" \
+            --name "$VM" \
+            --command-id RunShellScript \
+            --scripts "
+              export MLFLOW_TRACKING_URI="${{ secrets.MLFLOW_TRACKING_URI }}"
+              export MLFLOW_TRACKING_USERNAME="${{ secrets.MLFLOW_TRACKING_USERNAME }}"
+              export MLFLOW_TRACKING_PASSWORD="${{ secrets.MLFLOW_TRACKING_PASSWORD }}"
+
+              echo 'Checking Docker service...'
+              sudo systemctl is-active docker || sudo systemctl start docker
+
+              echo 'Logging into ACR...'
+              echo '$ACR_PASSWORD' | docker login ${{ secrets.CR_LOGIN_SERVER }} -u '$ACR_USERNAME' --password-stdin
+
+              echo 'Pulling new image...'
+              docker pull $IMAGE
+
+              echo 'Stopping and removing existing container...'
+              docker stop $NAME || true
+              docker rm $NAME || true
+
+              echo 'Starting new container...'
+              docker run -d --restart always \
+                --name $NAME \
+                -p $PORT:$PORT \
+                -e MLFLOW_TRACKING_URI='$MLFLOW_TRACKING_URI' \
+                -e MLFLOW_TRACKING_USERNAME='$MLFLOW_TRACKING_USERNAME' \
+                -e MLFLOW_TRACKING_PASSWORD='$MLFLOW_TRACKING_PASSWORD' \
+                -e DAGSHUB_USERNAME='$DAGSHUB_USERNAME' \
+                -e DAGSHUB_USER_TOKEN='$DAGSHUB_USER_TOKEN' \
+                $IMAGE
+
+              echo 'Deployment complete.'
+            "
