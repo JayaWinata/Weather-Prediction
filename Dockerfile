@@ -1,7 +1,7 @@
 FROM python:3.10-slim-buster
 WORKDIR /app
 
-EXPOSE 5000
+EXPOSE 8080
 COPY requirements.txt .
 
 RUN apt-get update && \
