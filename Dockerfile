@@ -20,4 +20,4 @@ RUN apt-get update && \
 
 COPY . /app
 
-CMD ["flask", "run"]
+CMD ["python", "app.py"]
