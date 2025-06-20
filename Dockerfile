@@ -1,11 +1,11 @@
 FROM python:3.10-slim-buster
 WORKDIR /app
-COPY . /app
 
+EXPOSE 5000
 COPY requirements.txt .
 
 RUN apt-get update && \
-    pip install --no-cache-dir -r docker_requirements.txt && \
+    pip install --no-cache-dir -r requirements.txt && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Azcopy
