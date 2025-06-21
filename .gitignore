@@ -6,3 +6,4 @@ artifacts/
 .deployment
 .vscode
 .env
+grafana.ini

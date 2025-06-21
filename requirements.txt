@@ -15,3 +15,5 @@ Flask-Cors
 dagshub
 gunicorn
 python-dotenv
+requests
+prometheus_client
